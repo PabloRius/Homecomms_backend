@@ -1,13 +1,8 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import swaggerUi from 'swagger-ui-express';
 
-import itemRoutes from './routes/itemRoutes';
-import userInfoRoutes from './routes/userInfoRoutes';
-import authRoutes from './routes/authRoutes';
-import hubRoutes from './routes/hubRoutes';
-import swaggerSpec from './config/swagger';
+import apiRouter from './routes/apiRoutes';
 
 const app: Application = express();
 
@@ -25,14 +20,6 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Health check OK!');
 });
 
-app.use('/api/items', itemRoutes);
-
-app.use('/api/users', userInfoRoutes);
-
-app.use('/api/auth', authRoutes);
-
-app.use('/api/hubs', hubRoutes);
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use('/api', apiRouter);
 
 export default app;
